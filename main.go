@@ -22,14 +22,7 @@ var RedisClient *redis.Client
 
 // Handler for the root path
 func homeHandler(w http.ResponseWriter, req bunrouter.Request) error {
-	fmt.Fprintf(w, "Welcome to the BunRouter Home Page!")
-	return nil
-}
-
-// Handler for /hello/:name path
-func helloHandler(w http.ResponseWriter, req bunrouter.Request) error {
-	name := req.Param("name")
-	fmt.Fprintf(w, "Hello, %s!", name)
+	fmt.Fprintf(w, "Welcome to Secure Proxy Management API Server!")
 	return nil
 }
 
@@ -41,7 +34,7 @@ func init() {
 	}
 	opt, err := redis.ParseURL(redisUrl)
 	if err != nil {
-		fmt.Printf("Failed to parse Redis URL: %v\n", err)
+		log.Printf("Failed to parse Redis URL: %v\n", err)
 		return
 	}
 
@@ -124,7 +117,6 @@ func main() {
 	// handler := otelhttp.NewHandler(router, "")
 
 	router.GET("/", homeHandler)
-	router.GET("/hello/:name", helloHandler)
 
 	router.POST("/api/add/:user/:expire", addKeyHandler)
 
@@ -134,7 +126,7 @@ func main() {
 	}
 
 	addr := fmt.Sprintf(":%s", port)
-	fmt.Printf("Starting Secure Proxy Management Server on http://localhost%s\n", addr)
+	log.Printf("Starting Secure Proxy Management Server on http://localhost%s\n", addr)
 	if err := http.ListenAndServe(addr, router); err != nil {
 		panic(err)
 	}
