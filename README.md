@@ -7,6 +7,10 @@
 ## Build
 
 ```bash
+go install github.com/qiuzhanghua/autotag@latest
+```
+
+```bash
 go mod tidy
 ```
 
@@ -24,6 +28,7 @@ create a file named `.env` in the root directory of the project and add the foll
 REDIS_URL=redis://localhost:6379/0
 SECURE_PROXY_MGMT_PORT=9999
 ```
+
 you can merge `.env` of `sproxy` and `sproxy-mgmt` into one file, if you put them in the same directory.
 
 ### Start the Proxy Server
@@ -33,6 +38,7 @@ bin/sproxy-mgmt
 ```
 
 ### call the API
+
 use [httpie](https://httpie.io/) to call the API
 
 ```bash
@@ -49,12 +55,13 @@ http POST http://localhost:9999/api/add/bob/36h45m3s
 ```
 
 ### How to use the API
+
 Use Java or any other language to call the API.
 call add API to add a new key with a TTL.
 and save the key in your database.
 
-
 ### API Status
+
 - [x] `add` with TTL
 - [ ] `list` by username
 - [ ] `load` from database
